@@ -1,62 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>RinersRoutes</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js" integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA==" crossorigin=""></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
-	<script src="js/bikeRoutes.js"></script>
-	<script src="js/app.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
 </head>
 <body>
-<div id="mapid"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<h2>Bus Stops</h2>
+
+<p>A Single Stop:</p>
+<button type="button" class="collapsible">A bus stop</button>
+<div class="content">
+    <p>Here is a stop</p>
+    <p>Here is another stop</p>
+</div>
+
+<p>A Set of Stops:</p>
+<button type="button" class="collapsible">Bus Stop 1</button>
+<div class="content">
+    <p>Here is a stop</p>
+    <p>Here is another stop</p></div>
+<button type="button" class="collapsible">Bus Stop 2</button>
+<div class="content">
+    <p>Here is a stop</p>
+    <p>Here is another stop</p></div>
+<button type="button" class="collapsible">Bus Stop 3</button>
+<div class="content">
+    <p>Here is a stop</p>
+    <p>Here is another stop</p></div>
+    
 <script>
-	// Create my lil map element
-	var mymap = L.map('mapid').setView([47.6097,-122.3331], 13);
-	var mymap = L.map('mapid').setView([47.6097,-122.3331], 10);
-	// Add OpenStreetMap tile layer to lil map element
-	L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-	,	accessToken: 'pk.eyJ1IjoicmluZXkiLCJhIjoiY2o1MXA0MGNiMDRmdjJ3bXJud3p5NGx5MCJ9.-eM2BNP0V79dJzOzWyXXCA'	
-		}).addTo(mymap);
-		
-	// Alki, Three Tree Point, Normandy Park, Lake Washington
-	// 51 MI.   2,691 FT.
-	var AlikiBikeRoute = L.polyline(AlikiBikeRoute,
-	{color: 'purple', weight: 4}).addTo(mymap);
-	AlikiBikeRoute.bindPopup("<h3>Alki, Three Tree Point, Normandy Park, Lake Washington Loop<h3> <p>51 MI.   2,691 FT.<p>");	
-	
-	// Lake Forest Park, Edmonds, Richmond Beach, COGS, Heaven & Hills
-	//  32 MI.   2,440 FT.
-	var	ForestPark = L.polyline(ForestPark,
-	{color: 'purple', weight: 4}).addTo(mymap);
-	ForestPark.bindPopup("<h3>Lake Forest Park, Edmonds, Richmond Beach, COGS, Heaven & Hills Loop <h3> <p>32 MI.   2,440 FT.<p>");
-	L.marker([47.550505, -122.252598])
-        .addTo(mymap)
-	 	.bindPopup("<b>Seward Park</b>");
-    L.marker([47.696382, -122.272210])
-        .addTo(mymap)
-	 	.bindPopup("<b>Matthew's Beach</b>");
-	
-	// Create an Empty Popup
-	var popup = L.popup();
-	
-	// Listen for a click event on the Map element
-	mymap.on('click', onMapClick);
-	
-	// load GeoJSON from an external file
-	// $.getJSON("neighborhoods.geojson",function(data){
-	// 	// add GeoJSON layer to the map once the file is loaded
-	// 	L.geoJson(data,{
-	// 	    onEachFeature: function (feature, layer) {
-	// 	        layer.addTo(feature.properties.name);
-	// 	    }
-	// 	}).addTo(mymap);
-	// });
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
 </script>
+
 </body>
 </html>
